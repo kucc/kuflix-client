@@ -1,11 +1,11 @@
 import Layout from '../../components/layout';
 
-const IndexPage = () => {
+const SearchPage = () => {
   return (
     <Layout>
-      <h1>감동을 주는 영화</h1>
+      <h1>검색페이지</h1>
     </Layout>
   );
 };
 
-export default IndexPage;
+export default SearchPage;
