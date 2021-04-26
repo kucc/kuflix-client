@@ -4,6 +4,7 @@ import { useState } from 'react';
 import ContainerTitle from '../../components/container-title';
 import Layout from '../../components/layout';
 import { getMockdata } from './mock-data';
+import UserInfo from './component/user-info';
 
 interface UserPageProps {
   userData;
@@ -21,6 +22,7 @@ const UserPage: NextPage<UserPageProps> = ({ userData, reviewData, quoteData }: 
       <S.UserPage>
         <S.UserContainer>
           <ContainerTitle>내 정보</ContainerTitle>
+          <UserInfo username={user.name} reviewCount={reviews.length} quoteCount={quotes.length} />
         </S.UserContainer>
 
         <S.UserContainer>
