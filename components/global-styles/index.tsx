@@ -29,9 +29,9 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'NanumSquare', sans-serif;
     width : 100%;
     height: 100%;
-    background-color: white;
-    color: var(--clr-grey-1);
     margin: 0;
+
+    background-color: var(--clr-grey-50);
 
   }::-webkit-scrollbar { /* 스크롤바 제거 */
     display: none;
