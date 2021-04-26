@@ -1,21 +1,20 @@
 import * as S from './styles';
 import { NextPage } from 'next';
 import { useState } from 'react';
-import ContainerTitle from '../../components/container-title';
 import Layout from '../../components/layout';
-import { getMockdata } from './mock-data';
+import ContainerTitle from '../../components/container-title';
 import UserInfo from './component/user-info';
-
-interface UserPageProps {
-  userData;
-  reviewData;
-  quoteData;
-}
+import MoreButton from './component/more-button';
+import UserPost from './component/user-post';
+import { getMockdata } from './mock-data';
+import { UserPageProps } from './types';
 
 const UserPage: NextPage<UserPageProps> = ({ userData, reviewData, quoteData }: UserPageProps) => {
   const [user] = useState(userData);
   const [reviews] = useState(reviewData);
   const [quotes] = useState(quoteData);
+  const [showReviews, setShowReviews] = useState(false);
+  const [showQuotes, setShowQuotes] = useState(false);
 
   return (
     <Layout>
@@ -26,11 +25,23 @@ const UserPage: NextPage<UserPageProps> = ({ userData, reviewData, quoteData }: 
         </S.UserContainer>
 
         <S.UserContainer>
-          <ContainerTitle>내가 쓴 리뷰</ContainerTitle>
+          <S.Row>
+            <ContainerTitle>내가 쓴 리뷰</ContainerTitle>
+            <MoreButton handleClick={() => setShowReviews(!showReviews)}></MoreButton>
+          </S.Row>
+          {showReviews
+            ? reviews.map((review) => <UserPost key={review.id} post={review} />)
+            : reviews.slice(0, 2).map((review) => <UserPost key={review.id} post={review} />)}
         </S.UserContainer>
 
         <S.UserContainer>
-          <ContainerTitle>내가 쓴 명대사</ContainerTitle>
+          <S.Row>
+            <ContainerTitle>내가 쓴 명대사</ContainerTitle>
+            <MoreButton handleClick={() => setShowQuotes(!showQuotes)}></MoreButton>
+          </S.Row>
+          {showQuotes
+            ? quotes.map((quoute) => <UserPost key={quoute.id} post={quoute} />)
+            : quotes.slice(0, 2).map((quoute) => <UserPost key={quoute.id} post={quoute} />)}
         </S.UserContainer>
       </S.UserPage>
     </Layout>
