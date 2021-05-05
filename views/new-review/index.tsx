@@ -40,7 +40,12 @@ const NewReviewPage: NextPage<NewReviewPageProps> = ({ title, date, movieId }) =
           </S.ReviewWrite>
         </S.ReviewComponentContainer>
         <S.ReviewComponentContainer>
-          <Register message="리뷰 등록하기" src={`/movie/${movieId}/complete-review`} movieId={movieId} handlechange={console.log("hi")} />
+          <Register
+            message="리뷰 등록하기"
+            movieId={movieId}
+            link="complete-review"
+            handleClick={console.log('hi')}
+          />
         </S.ReviewComponentContainer>
       </Layout>
     </S.ReviewPageContainer>
@@ -52,7 +57,7 @@ NewReviewPage.getInitialProps = ({ req, res, query, ...rest }) => {
   const title = query.title;
   const date = query.date;
 
-  return { movieId, title, date }
+  return { movieId, title, date };
 };
 
 export default NewReviewPage;

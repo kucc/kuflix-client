@@ -25,7 +25,12 @@ const NewQuotePage: NextPage<NewQuotePageProps> = ({ title, date, movieId }) => 
         </S.QuoteWriteContainer>
       </S.QuoteComponentContainer>
       <S.QuoteComponentContainer>
-        <Register message="리뷰 등록하기" src={`/movie/${movieId}/complete-review`} movieId={movieId} handlechange={console.log("hi")} />
+        <Register
+          message="명대사 등록하기"
+          movieId={movieId}
+          link="complete-quote"
+          handleClick={console.log('hi')}
+        />
       </S.QuoteComponentContainer>
     </Layout>
   );
@@ -36,7 +41,7 @@ NewQuotePage.getInitialProps = ({ req, res, query, ...rest }) => {
   const title = query.title;
   const date = query.date;
 
-  return { movieId, title, date }
+  return { movieId, title, date };
 };
 
 export default NewQuotePage;

@@ -19,15 +19,15 @@ const CompleteReviewPage: NextPage<CompleteReviewPageProps> = ({ title, movieId 
         <S.CompleteRegisterContainer>
           <Register
             message="같은 영화 명대사 등록하기"
-            src={`/movie/${movieId}/new-quote`}
             movieId={movieId}
-            handlechange={console.log('으악')}
+            link="new-quote"
+            handleClick={console.log('으악')}
           />
           <Register
             message="등록한 리뷰 보기"
-            src={`/movie/${movieId}`}
             movieId={movieId}
-            handlechange={console.log('히히')}
+            link=""
+            handleClick={console.log('히히')}
           />
         </S.CompleteRegisterContainer>
       </S.CompleteReviwPageContainer>
