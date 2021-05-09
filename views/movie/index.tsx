@@ -3,32 +3,20 @@ import Layout from '../../components/layout';
 import Info from './component/info';
 import Quote from './component/quote';
 import Review from './component/review';
-import { useMovie } from './hooks';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 import * as S from './styles';
 
 interface MoviePageProps {
   rest;
   movieId;
-  initialMovie;
-  initialReview;
-  initialQuote;
+  infos;
+  reviews;
+  quotes;
 }
 
-const MoviePage: NextPage<MoviePageProps> = ({
-  movieId,
-  initialMovie,
-  initialReview,
-  initialQuote,
-}) => {
+const MoviePage: NextPage<MoviePageProps> = ({ movieId, infos, reviews, quotes }) => {
   const router = useRouter();
-  const { infos, reviews, quotes } = useMovie({
-    movieId,
-    initialMovie,
-    initialReview,
-    initialQuote,
-  });
-
   const clickHandler = (movieId: number, link: string) => {
     router.push(`/movie/${movieId}/${link}`);
   };
@@ -73,14 +61,14 @@ const MoviePage: NextPage<MoviePageProps> = ({
 MoviePage.getInitialProps = async ({ req, res, query, ...rest }) => {
   const movieId = query.movieId;
   const baseURL = `http://localhost:3000/api/movie`;
-  const responseMovie = await fetch(`${baseURL}/infos`);
-  const responseReview = await fetch(`${baseURL}/reviews`);
-  const responseQuote = await fetch(`${baseURL}/quotes`);
-  const initialMovie = await responseMovie.json();
-  const initialReview = await responseReview.json();
-  const initialQuote = await responseQuote.json();
+  const responseMovie = await axios.get(`${baseURL}/infos`);
+  const responseReview = await axios.get(`${baseURL}/reviews`);
+  const responseQuote = await axios.get(`${baseURL}/quotes`);
+  const infos = await responseMovie.data;
+  const reviews = await responseReview.data;
+  const quotes = await responseQuote.data;
 
-  return { movieId, initialMovie, initialReview, initialQuote, rest };
+  return { movieId, infos, reviews, quotes, rest };
 };
 
 export default MoviePage;
