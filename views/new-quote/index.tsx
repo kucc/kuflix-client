@@ -4,13 +4,9 @@ import Register from '../new-review/component/register';
 import WriteHeader from '../new-review/component/writeheader';
 import Review from './component/review';
 import * as S from './styles';
+import { NewQuotePageProps } from './types';
 // import { useQuote } from './hooks';
 
-interface NewQuotePageProps {
-  title;
-  date;
-  movieId;
-}
 
 const NewQuotePage: NextPage<NewQuotePageProps> = ({ title, date, movieId }) => {
   // const { } = useQuote()

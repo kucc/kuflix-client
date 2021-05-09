@@ -2,12 +2,8 @@ import { NextPage } from 'next';
 import Layout from '../../components/layout';
 import Register from '../new-review/component/register';
 import * as S from './styles';
+import { CompleteQuotePageProps } from './types';
 // import WriteHeader from '../new-review/component/writeheader';
-
-interface CompleteQuotePageProps {
-  title;
-  movieId;
-}
 
 const CompleteQuotePage: NextPage<CompleteQuotePageProps> = ({ title, movieId }) => {
   return (

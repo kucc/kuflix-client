@@ -8,27 +8,3 @@ export type User = {
   id: number
   name: string
 }
-
-export type Info = {
-  id: number,
-  title: string,
-  original_title: string,
-  overview: string,
-  release_date: string,
-  vote_average: number,
-  genre_ids: object,
-  poster_path: string | null,
-}
-
-export type Review = {
-  id: number,
-  title: string,
-  content: string,
-  writer?: number,
-}
-
-export type Quote = {
-  id: number,
-  content: string,
-  writer?: number,
-}

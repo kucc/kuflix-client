@@ -6,13 +6,9 @@ import Rating from './component/rating';
 import Register from './component/register';
 import WriteHeader from './component/writeheader';
 import * as S from './styles';
+import { NewReviewPageProps } from './types';
 // import { useReview } from './hooks';
 
-interface NewReviewPageProps {
-  title;
-  date;
-  movieId;
-}
 
 const NewReviewPage: NextPage<NewReviewPageProps> = ({ title, date, movieId }) => {
   // const { } = useReview()

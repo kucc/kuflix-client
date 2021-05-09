@@ -1,4 +1,4 @@
-import { Info, Quote, Review, User } from '../interfaces';
+import { User } from '../interfaces';
 
 /** Dummy user data. */
 export const sampleUserData: User[] = [
@@ -8,7 +8,7 @@ export const sampleUserData: User[] = [
   { id: 104, name: 'Dave' },
 ];
 
-export const sampleMovieInfoData: Info[] = [
+export const sampleMovieInfoData = [
   {
     id: 1,
     title: "조커",
@@ -21,7 +21,7 @@ export const sampleMovieInfoData: Info[] = [
   }
 ];
 
-export const sampleMovieReviewData: Review[] = [
+export const sampleMovieReviewData = [
   {
     id: 1,
     title: "영화 조커 Joker 후기 리뷰",
@@ -37,7 +37,7 @@ export const sampleMovieReviewData: Review[] = [
   },
 ];
 
-export const sampleMovieQuoteData: Quote[] = [
+export const sampleMovieQuoteData = [
   {
     id: 1,
     content: "“비극인줄 알았는데, 코미디였어”",
