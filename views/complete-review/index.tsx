@@ -10,7 +10,13 @@ const CompleteReviewPage: NextPage<CompleteReviewPageProps> = ({ title, movieId 
     <Layout>
       <S.CompleteReviwPageContainer>
         <S.CompleteMessageContainer>
-          🎉<S.CompleteMessage>'{title}'에 리뷰를 등록했어요!</S.CompleteMessage>🎉
+          🎉
+          <S.CompleteMessage>
+            '{title}'에
+            <br />
+            리뷰를 등록했어요!
+          </S.CompleteMessage>
+          🎉
         </S.CompleteMessageContainer>
         <S.CompleteRegisterContainer>
           <Register

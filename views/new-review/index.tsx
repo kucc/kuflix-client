@@ -13,10 +13,9 @@ import { getMockdata } from '../movie/mock-data';
 const NewReviewPage: NextPage<NewReviewPageProps> = ({ name, releasedDate, movieId }) => {
   // const { } = useReview()
   return (
-    <S.ReviewPageContainer>
-      <WriteHeader name={name} releasedDate={releasedDate} movieId={movieId} />
-      <Layout>
-        <h1>리뷰작성페이지</h1>
+    <Layout>
+      <S.ReviewPageContainer>
+        <WriteHeader name={name} releasedDate={releasedDate} movieId={movieId} />
         <S.ReviewComponentContainer>
           <S.ReviewComponentTitle>평점</S.ReviewComponentTitle>
           <S.ReviewRating>
@@ -24,13 +23,13 @@ const NewReviewPage: NextPage<NewReviewPageProps> = ({ name, releasedDate, movie
           </S.ReviewRating>
         </S.ReviewComponentContainer>
         <S.ReviewComponentContainer>
-          <S.ReviewComponentTitle>영화키워드</S.ReviewComponentTitle>
+          <S.ReviewComponentTitle>영화 키워드</S.ReviewComponentTitle>
           <S.ReviewKeyword>
             <Keyword />
           </S.ReviewKeyword>
         </S.ReviewComponentContainer>
         <S.ReviewComponentContainer>
-          <S.ReviewComponentTitle>텍스트리뷰작성</S.ReviewComponentTitle>
+          <S.ReviewComponentTitle>텍스트 리뷰 작성</S.ReviewComponentTitle>
           <S.ReviewWrite>
             <Review />
           </S.ReviewWrite>
@@ -43,8 +42,8 @@ const NewReviewPage: NextPage<NewReviewPageProps> = ({ name, releasedDate, movie
             handleClick={console.log('hi')}
           />
         </S.ReviewComponentContainer>
-      </Layout>
-    </S.ReviewPageContainer>
+      </S.ReviewPageContainer>
+    </Layout>
   );
 };
 

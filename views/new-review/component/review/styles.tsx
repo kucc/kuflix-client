@@ -14,6 +14,7 @@ export const ReviewInputTitle = styled.input`
     border: none;
     padding: 5px;
     border-bottom: 1px solid #B0B8C1;
+    background-color: rgba(0, 0, 0, 0);
     ::placeholder {
       color: #B0B8C1;
       font-size: 16px;  
@@ -25,6 +26,7 @@ export const ReviewInputContent = styled.textarea`
     border: none;
     padding: 5px;
     min-height: 100px;
+    background-color: rgba(0, 0, 0, 0);
     ::placeholder {
       color: #B0B8C1;
       font-size: 16px;

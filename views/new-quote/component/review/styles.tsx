@@ -25,6 +25,7 @@ export const ReviewInputContent = styled.textarea`
     border: none;
     padding: 5px;
     min-height: 100px;
+    background-color: rgba(0, 0, 0, 0);
     ::placeholder {
       color: #B0B8C1;
       font-size: 16px;
