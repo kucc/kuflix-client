@@ -51,7 +51,6 @@ const MoviePage: NextPage<MoviePageProps> = ({ movieId, infos, reviews, quotes }
 };
 
 MoviePage.getInitialProps = async ({ req, res, query, ...rest }) => {
-  console.log(query);
   const movieId = query.movieId;
   const baseURL = `http://localhost:3000/api/movie`;
   const response = await getMockdata();

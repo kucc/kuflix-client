@@ -23,14 +23,9 @@ const CompleteReviewPage: NextPage<CompleteReviewPageProps> = ({ title, movieId 
             message="같은 영화 명대사 등록하기"
             movieId={movieId}
             link="new-quote"
-            handleClick={console.log('으악')}
+            handleClick={() => {}}
           />
-          <Register
-            message="등록한 리뷰 보기"
-            movieId={movieId}
-            link=""
-            handleClick={console.log('히히')}
-          />
+          <Register message="등록한 리뷰 보기" movieId={movieId} link="" handleClick={() => {}} />
         </S.CompleteRegisterContainer>
       </S.CompleteReviwPageContainer>
     </Layout>
@@ -41,7 +36,7 @@ CompleteReviewPage.getInitialProps = ({ req, res, query, ...rest }) => {
   const movieId = query.movieId;
   const title = query.title;
 
-  return { movieId, title };
+  return { movieId, title, rest };
 };
 
 export default CompleteReviewPage;

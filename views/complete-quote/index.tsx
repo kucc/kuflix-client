@@ -23,14 +23,9 @@ const CompleteQuotePage: NextPage<CompleteQuotePageProps> = ({ title, movieId })
             message="같은 영화 리뷰 등록하기"
             movieId={movieId}
             link="new-review"
-            handleClick={console.log('뻐꾹')}
+            handleClick={() => {}}
           />
-          <Register
-            message="등록한 명대사 보기"
-            movieId={movieId}
-            link=""
-            handleClick={console.log('응애')}
-          />
+          <Register message="등록한 명대사 보기" movieId={movieId} link="" handleClick={() => {}} />
         </S.CompletRegisterContainer>
       </S.CompleteQuotePageContainer>
     </Layout>
@@ -41,7 +36,7 @@ CompleteQuotePage.getInitialProps = ({ req, res, query, ...rest }) => {
   const movieId = query.movieId;
   const title = query.title;
 
-  return { movieId, title };
+  return { movieId, title, rest };
 };
 
 export default CompleteQuotePage;

@@ -39,7 +39,7 @@ const NewReviewPage: NextPage<NewReviewPageProps> = ({ name, releasedDate, movie
             message="리뷰 등록하기"
             movieId={movieId}
             link="complete-review"
-            handleClick={console.log('hi')}
+            handleClick={() => {}}
           />
         </S.ReviewComponentContainer>
       </S.ReviewPageContainer>
@@ -48,7 +48,6 @@ const NewReviewPage: NextPage<NewReviewPageProps> = ({ name, releasedDate, movie
 };
 
 NewReviewPage.getInitialProps = async ({ req, res, query, ...rest }) => {
-  console.log(query);
   const movieId = query.movieId;
   const baseURL = `http://localhost:3000/api/movie`;
   const response = await getMockdata();

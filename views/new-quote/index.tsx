@@ -26,7 +26,7 @@ const NewQuotePage: NextPage<NewQuotePageProps> = ({ name, releasedDate, movieId
             message="명대사 등록하기"
             movieId={movieId}
             link="complete-quote"
-            handleClick={console.log('hi')}
+            handleClick={() => {}}
           />
         </S.QuoteComponentContainer>
       </S.QuotePageContainer>
