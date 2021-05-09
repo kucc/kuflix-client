@@ -7,14 +7,14 @@ import Register from './component/register';
 import WriteHeader from './component/writeheader';
 import * as S from './styles';
 import { NewReviewPageProps } from './types';
+import { getMockdata } from '../movie/mock-data';
 // import { useReview } from './hooks';
 
-
-const NewReviewPage: NextPage<NewReviewPageProps> = ({ title, date, movieId }) => {
+const NewReviewPage: NextPage<NewReviewPageProps> = ({ name, releasedDate, movieId }) => {
   // const { } = useReview()
   return (
     <S.ReviewPageContainer>
-      <WriteHeader title={title} date={date} movieId={movieId} />
+      <WriteHeader name={name} releasedDate={releasedDate} movieId={movieId} />
       <Layout>
         <h1>리뷰작성페이지</h1>
         <S.ReviewComponentContainer>
@@ -48,12 +48,15 @@ const NewReviewPage: NextPage<NewReviewPageProps> = ({ title, date, movieId }) =
   );
 };
 
-NewReviewPage.getInitialProps = ({ req, res, query, ...rest }) => {
+NewReviewPage.getInitialProps = async ({ req, res, query, ...rest }) => {
+  console.log(query);
   const movieId = query.movieId;
-  const title = query.title;
-  const date = query.date;
+  const baseURL = `http://localhost:3000/api/movie`;
+  const response = await getMockdata();
+  const name = response.name;
+  const releasedDate = response.releasedDate;
 
-  return { movieId, title, date };
+  return { movieId, name, releasedDate, rest };
 };
 
 export default NewReviewPage;

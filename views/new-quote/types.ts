@@ -1,5 +1,5 @@
 export interface NewQuotePageProps {
-    title;
-    date;
+    name;
+    releasedDate;
     movieId;
 }

@@ -1,5 +1,5 @@
 export interface NewReviewPageProps {
-    title;
-    date;
+    name;
+    releasedDate;
     movieId;
 }

@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import * as S from './styles';
 import { MoviePageProps } from './types';
-
+import { getMockdata } from './mock-data';
 
 const MoviePage: NextPage<MoviePageProps> = ({ movieId, infos, reviews, quotes }) => {
   const router = useRouter();
@@ -19,16 +19,14 @@ const MoviePage: NextPage<MoviePageProps> = ({ movieId, infos, reviews, quotes }
     <Layout>
       <S.MoviePageContainer>
         <S.MovieComponentContainer>
-          {infos.map((info, i) => (
-            <Info info={info} key={i} />
-          ))}
+          <Info info={infos} />
         </S.MovieComponentContainer>
         <S.MovieComponentContainer>
           <S.MovieComponentTitle>
             리뷰
             <S.MovieInfoNew onClick={() => clickHandler(movieId, 'new-review')}>+</S.MovieInfoNew>
           </S.MovieComponentTitle>
-          {reviews.map((review, i) => (
+          {reviews.map((review: object, i: number) => (
             <S.MovieReviewContainer>
               <Review review={review} key={i} />
             </S.MovieReviewContainer>
@@ -40,7 +38,7 @@ const MoviePage: NextPage<MoviePageProps> = ({ movieId, infos, reviews, quotes }
             명대사
             <S.MovieInfoNew onClick={() => clickHandler(movieId, 'new-quote')}>+</S.MovieInfoNew>
           </S.MovieComponentTitle>
-          {quotes.map((quote, i) => (
+          {quotes.map((quote: object, i: number) => (
             <S.MovieQuoteContainer>
               <Quote quote={quote} key={i} />
             </S.MovieQuoteContainer>
@@ -53,14 +51,40 @@ const MoviePage: NextPage<MoviePageProps> = ({ movieId, infos, reviews, quotes }
 };
 
 MoviePage.getInitialProps = async ({ req, res, query, ...rest }) => {
+  console.log(query);
   const movieId = query.movieId;
   const baseURL = `http://localhost:3000/api/movie`;
-  const responseMovie = await axios.get(`${baseURL}/infos`);
-  const responseReview = await axios.get(`${baseURL}/reviews`);
-  const responseQuote = await axios.get(`${baseURL}/quotes`);
-  const infos = await responseMovie.data;
-  const reviews = await responseReview.data;
-  const quotes = await responseQuote.data;
+  const response = await getMockdata();
+  const {
+    id,
+    name,
+    englishName,
+    description,
+    releasedDate,
+    score,
+    genre,
+    posterImageUrl,
+    director,
+    country,
+    runningTime,
+    audienceCount,
+  } = response;
+  const infos = {
+    id,
+    name,
+    englishName,
+    description,
+    releasedDate,
+    score,
+    genre,
+    posterImageUrl,
+    director,
+    country,
+    runningTime,
+    audienceCount,
+  };
+  const reviews = response.reviews;
+  const quotes = response.famousLines;
 
   return { movieId, infos, reviews, quotes, rest };
 };
