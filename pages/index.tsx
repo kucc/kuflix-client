@@ -1,2 +1,2 @@
 export { default } from '../views/index';
-export { getStaticProps } from '../views/index';
+export { getServerSideProps } from '../views/index';

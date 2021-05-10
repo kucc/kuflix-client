@@ -41,7 +41,7 @@ const IndexPage = ({ sectionData }) => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const data: SubjectSection[] = await indexAPI.getSubjectSections();
 
   if (!data) {
