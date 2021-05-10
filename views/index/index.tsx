@@ -44,6 +44,15 @@ const IndexPage = ({ sectionData }) => {
 export const getStaticProps = async () => {
   const data: SubjectSection[] = await indexAPI.getSubjectSections();
 
+  if (!data) {
+    return {
+      redirect: {
+        destination: '/error',
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       sectionData: data,
