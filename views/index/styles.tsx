@@ -20,3 +20,18 @@ export const MovieImage = styled.img`
 
   margin-right: 12px;
 `;
+
+export const SearchButton = styled.button`
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+
+  position: absolute;
+  position: fixed;
+  right: 30px;
+  bottom: 50px;
+
+  border: none;
+  background: #ff0000;
+  box-shadow: 0px 7px 14px rgba(0, 0, 0, 1);
+`;

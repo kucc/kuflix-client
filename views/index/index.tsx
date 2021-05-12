@@ -1,17 +1,19 @@
 import * as S from './styles';
 import { ContainerTitle } from '../../components/container-title/styles';
 import Layout from '../../components/layout';
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { SubjectSection } from '../../common/model/subject-poster';
 import indexAPI from '../../common/api';
 
-const IndexPage = ({ sectionData }) => {
+const IndexPage = ({ sections }) => {
   const router = useRouter();
-  const [sections] = useState<SubjectSection[]>(sectionData);
 
-  const clickHandler = (movieId: number) => {
+  const onClickPoster = (movieId: number) => {
     router.push(`/movie/${movieId}`);
+  };
+
+  const onClickSearchButton = () => {
+    router.push(`/search`);
   };
 
   return (
@@ -28,7 +30,7 @@ const IndexPage = ({ sectionData }) => {
                       <S.MovieImage
                         src={subject.posterImageUrl}
                         key={subject.id}
-                        onClick={() => clickHandler(subject.id)}
+                        onClick={() => onClickPoster(subject.id)}
                       />
                     );
                   })}
@@ -36,6 +38,7 @@ const IndexPage = ({ sectionData }) => {
               </div>
             );
           })}
+        <S.SearchButton onClick={onClickSearchButton}></S.SearchButton>
       </S.IndexPage>
     </Layout>
   );
@@ -55,7 +58,7 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      sectionData: data,
+      sections: data,
     },
   };
 };
