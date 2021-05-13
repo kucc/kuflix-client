@@ -26,9 +26,9 @@ const MoviePage: NextPage<MoviePageProps> = ({ movieId, infos, reviews, quotes }
             리뷰
             <S.MovieInfoNew onClick={() => clickHandler(movieId, 'new-review')}>+</S.MovieInfoNew>
           </S.MovieComponentTitle>
-          {reviews.map((review: object, i: number) => (
-            <S.MovieReviewContainer>
-              <Review review={review} key={i} />
+          {reviews.map((review) => (
+            <S.MovieReviewContainer key={review.id}>
+              <Review review={review} />
             </S.MovieReviewContainer>
           ))}
           <S.MovieInfoMore>더보기</S.MovieInfoMore>
@@ -38,9 +38,9 @@ const MoviePage: NextPage<MoviePageProps> = ({ movieId, infos, reviews, quotes }
             명대사
             <S.MovieInfoNew onClick={() => clickHandler(movieId, 'new-quote')}>+</S.MovieInfoNew>
           </S.MovieComponentTitle>
-          {quotes.map((quote: object, i: number) => (
-            <S.MovieQuoteContainer>
-              <Quote quote={quote} key={i} />
+          {quotes.map((quote) => (
+            <S.MovieQuoteContainer key={quote.id}>
+              <Quote quote={quote} />
             </S.MovieQuoteContainer>
           ))}
           <S.MovieInfoMore>더보기</S.MovieInfoMore>
