@@ -4,39 +4,43 @@ import Register from '../new-review/component/register';
 import WriteHeader from '../new-review/component/writeheader';
 import Review from './component/review';
 import * as S from './styles';
+import { NewQuotePageProps } from './types';
+import axios from 'axios';
+import { getMockdata } from '../movie/mock-data';
 // import { useQuote } from './hooks';
 
-interface NewQuotePageProps {
-  title;
-  date;
-  movieId;
-}
-
-const NewQuotePage: NextPage<NewQuotePageProps> = ({ title, date, movieId }) => {
+const NewQuotePage: NextPage<NewQuotePageProps> = ({ name, releasedDate, movieId }) => {
   // const { } = useQuote()
   return (
     <Layout>
-      <WriteHeader title={title} date={date} movieId={movieId} />
-      <h1>명대사작성 페이지</h1>
-      <S.QuoteComponentContainer>
-        <S.QuoteComponentTitle>명대사 작성</S.QuoteComponentTitle>
-        <S.QuoteWriteContainer>
-          <Review />
-        </S.QuoteWriteContainer>
-      </S.QuoteComponentContainer>
-      <S.QuoteComponentContainer>
-        <Register message="리뷰 등록하기" src={`/movie/${movieId}/complete-review`} movieId={movieId} handlechange={console.log("hi")} />
-      </S.QuoteComponentContainer>
+      <S.QuotePageContainer>
+        <WriteHeader name={name} releasedDate={releasedDate} movieId={movieId} />
+        <S.QuoteComponentContainer>
+          <S.QuoteComponentTitle>명대사 작성</S.QuoteComponentTitle>
+          <S.QuoteWriteContainer>
+            <Review />
+          </S.QuoteWriteContainer>
+        </S.QuoteComponentContainer>
+        <S.QuoteComponentContainer>
+          <Register
+            message="명대사 등록하기"
+            movieId={movieId}
+            link="complete-quote"
+            handleClick={() => {}}
+          />
+        </S.QuoteComponentContainer>
+      </S.QuotePageContainer>
     </Layout>
   );
 };
 
-NewQuotePage.getInitialProps = ({ req, res, query, ...rest }) => {
+NewQuotePage.getInitialProps = async ({ req, res, query, ...rest }) => {
   const movieId = query.movieId;
-  const title = query.title;
-  const date = query.date;
-
-  return { movieId, title, date }
+  const baseURL = `http://localhost:3000/api/movie`;
+  const response = await getMockdata();
+  const name = response.name;
+  const releasedDate = response.releasedDate;
+  return { movieId, name, releasedDate, rest };
 };
 
 export default NewQuotePage;

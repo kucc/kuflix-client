@@ -6,21 +6,16 @@ import Rating from './component/rating';
 import Register from './component/register';
 import WriteHeader from './component/writeheader';
 import * as S from './styles';
+import { NewReviewPageProps } from './types';
+import { getMockdata } from '../movie/mock-data';
 // import { useReview } from './hooks';
 
-interface NewReviewPageProps {
-  title;
-  date;
-  movieId;
-}
-
-const NewReviewPage: NextPage<NewReviewPageProps> = ({ title, date, movieId }) => {
+const NewReviewPage: NextPage<NewReviewPageProps> = ({ name, releasedDate, movieId }) => {
   // const { } = useReview()
   return (
-    <S.ReviewPageContainer>
-      <WriteHeader title={title} date={date} movieId={movieId} />
-      <Layout>
-        <h1>리뷰작성페이지</h1>
+    <Layout>
+      <S.ReviewPageContainer>
+        <WriteHeader name={name} releasedDate={releasedDate} movieId={movieId} />
         <S.ReviewComponentContainer>
           <S.ReviewComponentTitle>평점</S.ReviewComponentTitle>
           <S.ReviewRating>
@@ -28,31 +23,38 @@ const NewReviewPage: NextPage<NewReviewPageProps> = ({ title, date, movieId }) =
           </S.ReviewRating>
         </S.ReviewComponentContainer>
         <S.ReviewComponentContainer>
-          <S.ReviewComponentTitle>영화키워드</S.ReviewComponentTitle>
+          <S.ReviewComponentTitle>영화 키워드</S.ReviewComponentTitle>
           <S.ReviewKeyword>
             <Keyword />
           </S.ReviewKeyword>
         </S.ReviewComponentContainer>
         <S.ReviewComponentContainer>
-          <S.ReviewComponentTitle>텍스트리뷰작성</S.ReviewComponentTitle>
+          <S.ReviewComponentTitle>텍스트 리뷰 작성</S.ReviewComponentTitle>
           <S.ReviewWrite>
             <Review />
           </S.ReviewWrite>
         </S.ReviewComponentContainer>
         <S.ReviewComponentContainer>
-          <Register message="리뷰 등록하기" src={`/movie/${movieId}/complete-review`} movieId={movieId} handlechange={console.log("hi")} />
+          <Register
+            message="리뷰 등록하기"
+            movieId={movieId}
+            link="complete-review"
+            handleClick={() => {}}
+          />
         </S.ReviewComponentContainer>
-      </Layout>
-    </S.ReviewPageContainer>
+      </S.ReviewPageContainer>
+    </Layout>
   );
 };
 
-NewReviewPage.getInitialProps = ({ req, res, query, ...rest }) => {
+NewReviewPage.getInitialProps = async ({ req, res, query, ...rest }) => {
   const movieId = query.movieId;
-  const title = query.title;
-  const date = query.date;
+  const baseURL = `http://localhost:3000/api/movie`;
+  const response = await getMockdata();
+  const name = response.name;
+  const releasedDate = response.releasedDate;
 
-  return { movieId, title, date }
+  return { movieId, name, releasedDate, rest };
 };
 
 export default NewReviewPage;

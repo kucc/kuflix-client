@@ -1,41 +1,34 @@
 import { NextPage } from 'next';
-import Link from 'next/link';
 import Layout from '../../components/layout';
 import Info from './component/info';
 import Quote from './component/quote';
 import Review from './component/review';
-import { useMovie } from './hooks';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 import * as S from './styles';
+import { MoviePageProps } from './types';
+import { getMockdata } from './mock-data';
 
+const MoviePage: NextPage<MoviePageProps> = ({ movieId, infos, reviews, quotes }) => {
+  const router = useRouter();
+  const clickHandler = (movieId: number, link: string) => {
+    router.push(`/movie/${movieId}/${link}`);
+  };
 
-interface MoviePageProps {
-  rest;
-  movieId;
-  initialMovie;
-  initialReview;
-  initialQuote;
-}
-
-const MoviePage: NextPage<MoviePageProps> = ({ movieId, initialMovie, initialReview, initialQuote }) => {
-  const { infos, reviews, quotes } = useMovie({ movieId, initialMovie, initialReview, initialQuote })
   return (
     <Layout>
       <S.MoviePageContainer>
-        <h1>영화정보 페이지</h1>
         <S.MovieComponentContainer>
-          {infos.map((info, i) => (
-            <Info info={info} key={i} />
-          ))}
+          <Info info={infos} />
         </S.MovieComponentContainer>
         <S.MovieComponentContainer>
-        <S.MovieComponentTitle>
+          <S.MovieComponentTitle>
             리뷰
-            <Link href={{ pathname: `/movie/${movieId}/new-review`, query: { movieId: movieId, title: infos[0].title, date: infos[0].release_date } }}><S.MovieInfoNew>+</S.MovieInfoNew></Link>
-            {/* <Link href={{ pathname: `/movie/${1}/new-review`, query: { movieId: 1, title: infos[0].title, date: infos[0].release_date } }}><S.MovieInfoNew>+</S.MovieInfoNew></Link> */}
+            <S.MovieInfoNew onClick={() => clickHandler(movieId, 'new-review')}>+</S.MovieInfoNew>
           </S.MovieComponentTitle>
-          {reviews.map((review, i) => (
-            <S.MovieReviewContainer>
-              <Review review={review} key={i} />
+          {reviews.map((review) => (
+            <S.MovieReviewContainer key={review.id}>
+              <Review review={review} />
             </S.MovieReviewContainer>
           ))}
           <S.MovieInfoMore>더보기</S.MovieInfoMore>
@@ -43,12 +36,11 @@ const MoviePage: NextPage<MoviePageProps> = ({ movieId, initialMovie, initialRev
         <S.MovieComponentContainer>
           <S.MovieComponentTitle>
             명대사
-            {/* <Link href={{ pathname: `/movie/${movieId}/new-quote`, query: { movieId: movieId, title: infos[0].title, date: infos[0].release_date } }}><S.MovieInfoNew>+</S.MovieInfoNew></Link> */}
-            <Link href={{ pathname: `/movie/${1}/new-quote`, query: { movieId: 1, title: infos[0].title, date: infos[0].release_date } }}><S.MovieInfoNew>+</S.MovieInfoNew></Link>
+            <S.MovieInfoNew onClick={() => clickHandler(movieId, 'new-quote')}>+</S.MovieInfoNew>
           </S.MovieComponentTitle>
-          {quotes.map((quote, i) => (
-            <S.MovieQuoteContainer>
-              <Quote quote={quote} key={i} />
+          {quotes.map((quote) => (
+            <S.MovieQuoteContainer key={quote.id}>
+              <Quote quote={quote} />
             </S.MovieQuoteContainer>
           ))}
           <S.MovieInfoMore>더보기</S.MovieInfoMore>
@@ -61,20 +53,39 @@ const MoviePage: NextPage<MoviePageProps> = ({ movieId, initialMovie, initialRev
 MoviePage.getInitialProps = async ({ req, res, query, ...rest }) => {
   const movieId = query.movieId;
   const baseURL = `http://localhost:3000/api/movie`;
-  const response1 = await fetch(
-    `${baseURL}/infos`
-  );
-  const response2 = await fetch(
-    `${baseURL}/reviews`
-  );
-  const response3 = await fetch(
-    `${baseURL}/quotes`
-  );
-  const initialMovie = await response1.json()
-  const initialReview = await response2.json()
-  const initialQuote = await response3.json()
+  const response = await getMockdata();
+  const {
+    id,
+    name,
+    englishName,
+    description,
+    releasedDate,
+    score,
+    genre,
+    posterImageUrl,
+    director,
+    country,
+    runningTime,
+    audienceCount,
+  } = response;
+  const infos = {
+    id,
+    name,
+    englishName,
+    description,
+    releasedDate,
+    score,
+    genre,
+    posterImageUrl,
+    director,
+    country,
+    runningTime,
+    audienceCount,
+  };
+  const reviews = response.reviews;
+  const quotes = response.famousLines;
 
-  return { movieId, initialMovie, initialReview, initialQuote, rest };
+  return { movieId, infos, reviews, quotes, rest };
 };
 
 export default MoviePage;

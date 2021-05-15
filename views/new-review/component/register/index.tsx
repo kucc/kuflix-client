@@ -1,19 +1,26 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import * as S from './styles';
 
 interface RegisterProps {
   message;
-  src;
   movieId;
-  handlechange;
+  link;
+  handleClick;
 }
 
-const Register: React.FC<RegisterProps> = ({ message, src, movieId, handlechange }) => {
+const Register: React.FC<RegisterProps> = ({ message, movieId, link, handleClick }) => {
+  const router = useRouter();
+
+  const clickHandler = (movieId: number, link: string) => {
+    router.push(`/movie/${movieId}/${link}`);
+  };
+
   return (
     <S.RegisterContainer>
-      <Link href={{ path: src, query: { movieId: movieId } }}>
-        <S.RegisterButton onClick={handlechange}>{message}</S.RegisterButton>
-      </Link>
+      <S.RegisterButton onClick={() => clickHandler(movieId, link)}>
+        {message}
+      </S.RegisterButton>
     </S.RegisterContainer>
   );
 };
