@@ -1,22 +1,28 @@
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import * as S from './styles';
 
 interface WriteHeaderProps {
-    title;
-    date;
-    movieId;
+  name;
+  releasedDate;
+  movieId;
 }
 
-const WriteHeader: React.FC<WriteHeaderProps> = ({ title, date, movieId }) => {
-    return (
-        <S.WriteHeaderContainer>
-            <S.HeaderInfoContainer>
-                <S.HeaderInfoTitle>{title} | </S.HeaderInfoTitle>
-                <S.HeaderInfoDate>{date}</S.HeaderInfoDate>
-            </S.HeaderInfoContainer>
-            <Link href={{ path: `/movie/${movieId}`, query: { movieId: movieId } }}><S.HeaderLink>자세히보기</S.HeaderLink></Link>
-        </S.WriteHeaderContainer>
-    );
+const WriteHeader: React.FC<WriteHeaderProps> = ({ name, releasedDate, movieId }) => {
+  const router = useRouter();
+
+  const clickHandler = (movieId: number) => {
+    router.push(`/movie/${movieId}`);
+  };
+
+  return (
+    <S.WriteHeaderContainer>
+      <S.HeaderInfoContainer>
+        <S.HeaderInfoTitle>{name} | </S.HeaderInfoTitle>
+        <S.HeaderInfoDate>{releasedDate}</S.HeaderInfoDate>
+      </S.HeaderInfoContainer>
+      <S.HeaderLink onClick={() => clickHandler(movieId)}>자세히보기</S.HeaderLink>
+    </S.WriteHeaderContainer>
+  );
 };
 
 export default WriteHeader;
