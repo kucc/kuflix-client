@@ -5,7 +5,6 @@ import WriteHeader from '../new-review/component/writeheader';
 import Review from './component/review';
 import * as S from './styles';
 import { NewQuotePageProps } from './types';
-import axios from 'axios';
 import { getMockdata } from '../movie/mock-data';
 // import { useQuote } from './hooks';
 
@@ -36,7 +35,6 @@ const NewQuotePage: NextPage<NewQuotePageProps> = ({ name, releasedDate, movieId
 
 NewQuotePage.getInitialProps = async ({ req, res, query, ...rest }) => {
   const movieId = query.movieId;
-  const baseURL = `http://localhost:3000/api/movie`;
   const response = await getMockdata();
   const name = response.name;
   const releasedDate = response.releasedDate;

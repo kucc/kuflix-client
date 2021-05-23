@@ -4,7 +4,6 @@ import Info from './component/info';
 import Quote from './component/quote';
 import Review from './component/review';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 import * as S from './styles';
 import { MoviePageProps } from './types';
 import { getMockdata } from './mock-data';
@@ -52,7 +51,6 @@ const MoviePage: NextPage<MoviePageProps> = ({ movieId, infos, reviews, quotes }
 
 MoviePage.getInitialProps = async ({ req, res, query, ...rest }) => {
   const movieId = query.movieId;
-  const baseURL = `http://localhost:3000/api/movie`;
   const response = await getMockdata();
   const {
     id,

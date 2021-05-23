@@ -49,7 +49,6 @@ const NewReviewPage: NextPage<NewReviewPageProps> = ({ name, releasedDate, movie
 
 NewReviewPage.getInitialProps = async ({ req, res, query, ...rest }) => {
   const movieId = query.movieId;
-  const baseURL = `http://localhost:3000/api/movie`;
   const response = await getMockdata();
   const name = response.name;
   const releasedDate = response.releasedDate;
