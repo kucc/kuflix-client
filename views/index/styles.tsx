@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const IndexPage = styled.div`
   width: 100%;
   padding-left: 20px;
+  margin-top: 35px;
 `;
 
 export const MovieGroup = styled.div`

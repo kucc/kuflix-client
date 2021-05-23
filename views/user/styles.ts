@@ -4,6 +4,7 @@ import { ColumnStyleProps } from './types';
 export const UserPage = styled.div`
   width: 100%;
   padding: 0 30px;
+  margin-top: 35px;
 `;
 
 export const UserContainer = styled.div`
