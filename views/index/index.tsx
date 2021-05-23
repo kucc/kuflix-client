@@ -1,72 +1,66 @@
 import * as S from './styles';
 import { ContainerTitle } from '../../components/container-title/styles';
 import Layout from '../../components/layout';
-import { getMockdata } from './mock-data';
-import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { NextPage } from 'next';
+import { SubjectSection } from '../../common/model/subject-poster';
+import indexAPI from '../../common/api';
 
-interface IndexPageProps {
-  movieData;
-}
-const IndexPage: NextPage<IndexPageProps> = ({ movieData }) => {
+const IndexPage = ({ sections }) => {
   const router = useRouter();
-  const [movies] = useState(movieData);
 
-  const clickHandler = (movieId: number) => {
+  const onClickPoster = (movieId: number) => {
     router.push(`/movie/${movieId}`);
+  };
+
+  const onClickSearchButton = () => {
+    router.push(`/search`);
   };
 
   return (
     <Layout>
       <S.IndexPage>
-        <ContainerTitle>감동적인 영화</ContainerTitle>
-        <S.MovieGroup>
-          {movies.map((movie) => {
+        {sections &&
+          sections.map((section, id) => {
             return (
-              <S.MovieImage
-                src={movie.image}
-                key={movie.id}
-                onClick={() => clickHandler(movie.id)}
-              />
+              <div key={id}>
+                <ContainerTitle>{section.title}</ContainerTitle>
+                <S.MovieGroup>
+                  {section.subjects.map((subject) => {
+                    return (
+                      <S.MovieImage
+                        src={subject.posterImageUrl}
+                        key={subject.id}
+                        onClick={() => onClickPoster(subject.id)}
+                      />
+                    );
+                  })}
+                </S.MovieGroup>
+              </div>
             );
           })}
-        </S.MovieGroup>
-
-        <ContainerTitle>웃음을 주는 영화</ContainerTitle>
-        <S.MovieGroup>
-          {movies.map((movie) => {
-            return (
-              <S.MovieImage
-                src={movie.image}
-                key={movie.id}
-                onClick={() => clickHandler(movie.id)}
-              />
-            );
-          })}
-        </S.MovieGroup>
-
-        <ContainerTitle>가족과 함께 보는 영화</ContainerTitle>
-        <S.MovieGroup>
-          {movies.map((movie) => {
-            return (
-              <S.MovieImage
-                src={movie.image}
-                key={movie.id}
-                onClick={() => clickHandler(movie.id)}
-              />
-            );
-          })}
-        </S.MovieGroup>
+        <S.SearchButton onClick={onClickSearchButton}></S.SearchButton>
       </S.IndexPage>
     </Layout>
   );
 };
 
-IndexPage.getInitialProps = async () => {
-  const movieData = await getMockdata();
+export const getServerSideProps = async () => {
+  const data: SubjectSection[] = await indexAPI.getSubjectSections();
 
-  return { movieData };
+  if (!data) {
+    return {
+      redirect: {
+        destination: '/error',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      sections: data,
+    },
+  };
 };
 
 export default IndexPage;
