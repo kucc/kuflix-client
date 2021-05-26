@@ -1,9 +1,25 @@
+import * as S from './styles';
 import Layout from '../../components/layout';
-
+import subjectAPI from '../../common/api/subject';
+import { useQuery } from 'react-query';
+import { useRouter } from 'next/router';
+import SubjectHeader from 'components/subject-header';
 import { getMockdata } from 'views/movie/mock-data';
 
 const ReviewsPage = ({ reviews }) => {
-  return <Layout>리뷰목록 페이지</Layout>;
+  const router = useRouter();
+  const { id } = router.query;
+  const { data: subject } = useQuery(['subject', id], () =>
+    subjectAPI.getSubjectById(parseInt(id as string))
+  );
+
+  return (
+    <Layout>
+      <S.ReviewsPage>
+        <SubjectHeader subject={subject} />
+      </S.ReviewsPage>
+    </Layout>
+  );
 };
 
 export default ReviewsPage;
