@@ -31,7 +31,6 @@ const Info: React.FC<InfoProps> = ({ info }) => {
               <S.InfoValue>{info.director}</S.InfoValue>
               <S.InfoValue>{info.audienceCount}</S.InfoValue>
               <S.InfoValue>⭐️{info.score}</S.InfoValue>
-              <S.InfoValue></S.InfoValue>
             </S.InfoTableRow>
           </S.InfoTableBody>
         </S.InfoTable>
