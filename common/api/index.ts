@@ -1,12 +1,12 @@
 import axios from '../axios';
-import endpoints from '../endpoints';
 import { SubjectSection } from '../model/subject-poster';
 
 const indexAPI = {
   getSubjectSections: async (): Promise<SubjectSection[]> => {
     const { data } = await axios
-      .get<{ sections: SubjectSection[] }>(endpoints.INDEX_API)
-      .catch(() => {
+      .get<{ sections: SubjectSection[] }>(process.env.INDEX_API)
+      .catch((err) => {
+        console.error(err);
         return { data: null };
       });
 
