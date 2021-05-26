@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 import SubjectHeader from 'components/subject-header';
 import { getMockdata } from 'views/movie/mock-data';
+import ReviewBox from 'components/review-box';
 
 const ReviewsPage = ({ reviews }) => {
   const router = useRouter();
@@ -13,10 +14,17 @@ const ReviewsPage = ({ reviews }) => {
     subjectAPI.getSubjectById(parseInt(id as string))
   );
 
+  console.log(reviews);
+
   return (
     <Layout>
       <S.ReviewsPage>
         <SubjectHeader subject={subject} />
+
+        {reviews &&
+          reviews.map((review) => {
+            return <ReviewBox key={review.id} review={review} />;
+          })}
       </S.ReviewsPage>
     </Layout>
   );

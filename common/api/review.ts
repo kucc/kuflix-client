@@ -8,7 +8,14 @@ const reviewAPI = {
   },
 
   postReviewLike: async (reviewId: number) => {
-    await axios.post(`${process.env.REVIEW_API}/${reviewId}/like`);
+    const { data: result } = await axios
+      .post(`${process.env.REVIEW_API}/${reviewId}/like`)
+      .catch((err) => {
+        console.error(err);
+        return null;
+      });
+
+    return result;
   },
 
   deleteReviewLike: async (reviewId: number) => {
