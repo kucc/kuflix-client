@@ -1,14 +1,8 @@
 import { useRouter } from 'next/router';
 import * as S from './styles';
+import { RegisterProps } from './types';
 
-interface RegisterProps {
-  message;
-  movieId;
-  link;
-  handleClick;
-}
-
-const Register: React.FC<RegisterProps> = ({ message, movieId, link }) => {
+const Register: React.FC<RegisterProps> = ({ message, movieId, link, color }) => {
   const router = useRouter();
 
   const clickHandler = (movieId: number, link: string) => {
@@ -17,7 +11,7 @@ const Register: React.FC<RegisterProps> = ({ message, movieId, link }) => {
 
   return (
     <S.RegisterContainer>
-      <S.RegisterButton onClick={() => clickHandler(movieId, link)}>{message}</S.RegisterButton>
+      <S.RegisterButton onClick={() => clickHandler(movieId, link)} color={color}>{message}</S.RegisterButton>
     </S.RegisterContainer>
   );
 };

@@ -24,8 +24,15 @@ const CompleteQuotePage: NextPage<CompleteQuotePageProps> = ({ title, movieId })
             movieId={movieId}
             link="new-review"
             handleClick={() => {}}
+            color="primary"
           />
-          <Register message="등록한 명대사 보기" movieId={movieId} link="" handleClick={() => {}} />
+          <Register
+            message="등록한 명대사 보기"
+            movieId={movieId}
+            link=""
+            handleClick={() => {}}
+            color="secondary"
+          />
         </S.CompletRegisterContainer>
       </S.CompleteQuotePageContainer>
     </Layout>

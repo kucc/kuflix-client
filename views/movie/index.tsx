@@ -21,28 +21,32 @@ const MoviePage: NextPage<MoviePageProps> = ({ movieId, infos, reviews, quotes }
           <Info info={infos} />
         </S.MovieComponentContainer>
         <S.MovieComponentContainer>
-          <S.MovieComponentTitle>
-            리뷰
-            <S.MovieInfoNew onClick={() => clickHandler(movieId, 'new-review')}>+</S.MovieInfoNew>
-          </S.MovieComponentTitle>
+          <S.MovieComponentHeader>
+            <S.MovieComponentTitle>
+              리뷰
+              <S.MovieInfoNew onClick={() => clickHandler(movieId, 'new-review')}>✏️</S.MovieInfoNew>
+            </S.MovieComponentTitle>
+            <S.MovieInfoMore>더보기</S.MovieInfoMore>
+          </S.MovieComponentHeader>
           {reviews.map((review) => (
             <S.MovieReviewContainer key={review.id}>
               <Review review={review} />
             </S.MovieReviewContainer>
           ))}
-          <S.MovieInfoMore>더보기</S.MovieInfoMore>
         </S.MovieComponentContainer>
         <S.MovieComponentContainer>
-          <S.MovieComponentTitle>
-            명대사
-            <S.MovieInfoNew onClick={() => clickHandler(movieId, 'new-quote')}>+</S.MovieInfoNew>
-          </S.MovieComponentTitle>
+          <S.MovieComponentHeader>
+            <S.MovieComponentTitle>
+              명대사
+              <S.MovieInfoNew onClick={() => clickHandler(movieId, 'new-quote')}>✏️</S.MovieInfoNew>
+            </S.MovieComponentTitle>
+            <S.MovieInfoMore>더보기</S.MovieInfoMore>
+          </S.MovieComponentHeader>
           {quotes.map((quote) => (
             <S.MovieQuoteContainer key={quote.id}>
               <Quote quote={quote} />
             </S.MovieQuoteContainer>
           ))}
-          <S.MovieInfoMore>더보기</S.MovieInfoMore>
         </S.MovieComponentContainer>
       </S.MoviePageContainer>
     </Layout>
