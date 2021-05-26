@@ -1,19 +1,18 @@
-import { NextPage } from 'next';
 import Layout from '../../components/layout';
 import Register from '../new-review/component/register';
 import WriteHeader from '../new-review/component/writeheader';
 import Review from './component/review';
 import * as S from './styles';
-import { NewQuotePageProps } from './types';
-import { getMockdata } from '../movie/mock-data';
+import subjectAPI from '../../common/api/subject';
+import SubjectModel from '../../common/model/subject';
 // import { useQuote } from './hooks';
 
-const NewQuotePage: NextPage<NewQuotePageProps> = ({ name, releasedDate, movieId }) => {
+const NewQuotePage = ({ subject }) => {
   // const { } = useQuote()
   return (
     <Layout>
       <S.QuotePageContainer>
-        <WriteHeader name={name} releasedDate={releasedDate} movieId={movieId} />
+        <WriteHeader name={subject.name} releasedDate={subject.releasedDate} movieId={subject.id} />
         <S.QuoteComponentContainer>
           <S.QuoteComponentTitle>명대사 작성</S.QuoteComponentTitle>
           <S.QuoteWriteContainer>
@@ -23,7 +22,7 @@ const NewQuotePage: NextPage<NewQuotePageProps> = ({ name, releasedDate, movieId
         <S.QuoteComponentContainer>
           <Register
             message="명대사 등록하기"
-            movieId={movieId}
+            movieId={subject.id}
             link="complete-quote"
             handleClick={() => {}}
           />
@@ -33,12 +32,22 @@ const NewQuotePage: NextPage<NewQuotePageProps> = ({ name, releasedDate, movieId
   );
 };
 
-NewQuotePage.getInitialProps = async ({ req, res, query, ...rest }) => {
-  const movieId = query.movieId;
-  const response = await getMockdata();
-  const name = response.name;
-  const releasedDate = response.releasedDate;
-  return { movieId, name, releasedDate, rest };
+export const getServerSideProps = async ({ params }) => {
+  const movieId = params.id;
+  const data: SubjectModel = await subjectAPI.getSubjectById(movieId);
+  if (!data) {
+    return {
+      redirect: {
+        destination: '/error',
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {
+      subject: data,
+    },
+  };
 };
 
 export default NewQuotePage;

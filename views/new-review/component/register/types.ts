@@ -2,8 +2,8 @@ export interface RegisterProps {
     message;
     movieId;
     link;
-    handleClick;
-    color;
+    handleClick?;
+    color?;
 }
 export interface ButtonStyleProps {
     color?: string;

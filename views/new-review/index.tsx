@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import Layout from '../../components/layout';
 import Review from './component/review';
 import Keyword from './component/keyword';
@@ -6,16 +5,16 @@ import Rating from './component/rating';
 import Register from './component/register';
 import WriteHeader from './component/writeheader';
 import * as S from './styles';
-import { NewReviewPageProps } from './types';
-import { getMockdata } from '../movie/mock-data';
+import SubjectModel from '../../common/model/subject';
+import subjectAPI from '../../common/api/subject';
 // import { useReview } from './hooks';
 
-const NewReviewPage: NextPage<NewReviewPageProps> = ({ name, releasedDate, movieId }) => {
+const NewReviewPage = ({ subject }) => {
   // const { } = useReview()
   return (
     <Layout>
       <S.ReviewPageContainer>
-        <WriteHeader name={name} releasedDate={releasedDate} movieId={movieId} />
+        {/* <WriteHeader name={subject.name} releasedDate={subject.releasedDate} movieId={subject.id} /> */}
         <S.ReviewComponentContainer>
           <S.ReviewComponentTitle>평점</S.ReviewComponentTitle>
           <S.ReviewRating>
@@ -37,7 +36,7 @@ const NewReviewPage: NextPage<NewReviewPageProps> = ({ name, releasedDate, movie
         <S.ReviewComponentContainer>
           <Register
             message="리뷰 등록하기"
-            movieId={movieId}
+            movieId={subject.id}
             link="complete-review"
             handleClick={() => {}}
           />
@@ -47,13 +46,22 @@ const NewReviewPage: NextPage<NewReviewPageProps> = ({ name, releasedDate, movie
   );
 };
 
-NewReviewPage.getInitialProps = async ({ req, res, query, ...rest }) => {
-  const movieId = query.movieId;
-  const response = await getMockdata();
-  const name = response.name;
-  const releasedDate = response.releasedDate;
-
-  return { movieId, name, releasedDate, rest };
+export const getServerSideProps = async ({ params }) => {
+  const movieId = params.id;
+  const data: SubjectModel = await subjectAPI.getSubjectById(movieId);
+  if (!data) {
+    return {
+      redirect: {
+        destination: '/error',
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {
+      subject: data,
+    },
+  };
 };
 
 export default NewReviewPage;
