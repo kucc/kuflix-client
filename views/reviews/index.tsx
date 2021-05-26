@@ -4,13 +4,14 @@ import subjectAPI from '../../common/api/subject';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 import SubjectHeader from 'components/subject-header';
+import LoadingSpinner from 'components/loading';
 import { getMockdata } from 'views/movie/mock-data';
 import ReviewBox from 'components/review-box';
 
 const ReviewsPage = ({ reviews }) => {
   const router = useRouter();
   const { id } = router.query;
-  const { data: subject } = useQuery(['subject', id], () =>
+  const { data: subject, isLoading } = useQuery(['subject', id], () =>
     subjectAPI.getSubjectById(parseInt(id as string))
   );
 
@@ -18,14 +19,20 @@ const ReviewsPage = ({ reviews }) => {
 
   return (
     <Layout>
-      <S.ReviewsPage>
-        <SubjectHeader subject={subject} />
+      {isLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <S.ReviewsPage>
+            <SubjectHeader subject={subject} />
 
-        {reviews &&
-          reviews.map((review) => {
-            return <ReviewBox key={review.id} review={review} />;
-          })}
-      </S.ReviewsPage>
+            {reviews &&
+              reviews.map((review) => {
+                return <ReviewBox key={review.id} review={review} />;
+              })}
+          </S.ReviewsPage>
+        </>
+      )}
     </Layout>
   );
 };
