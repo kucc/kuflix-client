@@ -11,6 +11,7 @@ export const SubjectHeaderContainer = styled.div<SubjectHeaderStyleProps>`
 
   background: #333d4b;
   padding: 30px;
+  padding-left: 15px;
 
   display: flex;
   align-items: center;
