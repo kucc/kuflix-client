@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { PostContentStyleProps } from './types';
 
 export const UserPost = styled.div`
   width: 100%;
@@ -61,18 +62,14 @@ export const PostContainer = styled.div`
   padding: 10px 18px 13px 18px;
 `;
 
-interface PostContentProps {
-  showAll: boolean;
-}
-
-export const PostTitleRow = styled.div<PostContentProps>`
+export const PostTitleRow = styled.div<PostContentStyleProps>`
   width: 100%;
   height: 100%;
   display: flex;
   white-space: ${(props) => (props.showAll ? 'none' : 'nowrap')};
 `;
 
-export const PostTitle = styled.div<PostContentProps>`
+export const PostTitle = styled.div<PostContentStyleProps>`
   width: 80%;
   font-weight: 500;
   font-size: 15px;
@@ -107,7 +104,7 @@ export const LikeIcon = styled.div`
   margin-right: 5px;
 `;
 
-export const PostContent = styled.div<PostContentProps>`
+export const PostContent = styled.div<PostContentStyleProps>`
   width: 100%;
   font-weight: 400;
   font-size: 15px;
