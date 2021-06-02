@@ -7,30 +7,31 @@ import WriteHeader from './component/writeheader';
 import * as S from './styles';
 import SubjectModel from '../../common/model/subject';
 import subjectAPI from '../../common/api/subject';
-// import { useReview } from './hooks';
+import { useReview } from './hooks';
 
 const NewReviewPage = ({ subject }) => {
-  // const { } = useReview()
+  const { reviewForm, setReviewForm, handleChange, disabled, handleSubmit } = useReview(subject.id);
   return (
     <Layout>
       <S.ReviewPageContainer>
+        {console.log(reviewForm)}
         <WriteHeader name={subject.name} releasedDate={subject.releasedDate} movieId={subject.id} />
         <S.ReviewComponentContainer>
           <S.ReviewComponentTitle>평점</S.ReviewComponentTitle>
           <S.ReviewRating>
-            <Rating />
+            <Rating reviewForms={reviewForm} handleChange={handleChange} />
           </S.ReviewRating>
         </S.ReviewComponentContainer>
         <S.ReviewComponentContainer>
           <S.ReviewComponentTitle>영화 키워드</S.ReviewComponentTitle>
           <S.ReviewKeyword>
-            <Keyword />
+            <Keyword reviewForms={reviewForm} setReviewForm={setReviewForm} />
           </S.ReviewKeyword>
         </S.ReviewComponentContainer>
         <S.ReviewComponentContainer>
           <S.ReviewComponentTitle>텍스트 리뷰 작성</S.ReviewComponentTitle>
           <S.ReviewWrite>
-            <Review />
+            <Review reviewForms={reviewForm} handleChange={handleChange} />
           </S.ReviewWrite>
         </S.ReviewComponentContainer>
         <S.ReviewComponentContainer>
@@ -38,7 +39,8 @@ const NewReviewPage = ({ subject }) => {
             message="리뷰 등록하기"
             movieId={subject.id}
             link="complete-review"
-            handleClick={() => {}}
+            handleClick={handleSubmit}
+            disabled={disabled}
           />
         </S.ReviewComponentContainer>
       </S.ReviewPageContainer>

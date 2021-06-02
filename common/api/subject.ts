@@ -39,8 +39,8 @@ const subjectAPI = {
     return famousLineId;
   },
 
-  postSubjectQuote: async (id: number): Promise<{ famousLineId: number }> => {
-    const { data: famousLineId } = await axios.post(`${endpoints.SUBJECT_API}/${id}/famous-lines`);
+  postSubjectQuote: async (id: number, content: string): Promise<{ famousLineId: number }> => {
+    const { data: famousLineId } = await axios.post(`${endpoints.SUBJECT_API}/${id}/famous-lines`, content);
 
     return famousLineId;
   },

@@ -4,6 +4,7 @@ export interface RegisterProps {
     link;
     handleClick?;
     color?;
+    disabled?;
 }
 export interface ButtonStyleProps {
     color?: string;
