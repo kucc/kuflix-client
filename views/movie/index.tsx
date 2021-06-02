@@ -7,7 +7,7 @@ import * as S from './styles';
 import SubjectModel from '../../common/model/subject';
 import subjectAPI from '../../common/api/subject';
 
-const MoviePage = ({ params, query, subject }) => {
+const MoviePage = ({ subject }) => {
   const router = useRouter();
   const clickHandler = (movieId: number, link: string) => {
     router.push(`/movie/${movieId}/${link}`);
@@ -15,9 +15,10 @@ const MoviePage = ({ params, query, subject }) => {
 
   return (
     <Layout>
-      {console.log(params, query)}
       <S.MoviePageContainer>
-        <S.MovieComponentContainer>{/* <Info info={subject} /> */}</S.MovieComponentContainer>
+        <S.MovieComponentContainer>
+          <Info info={subject} />
+        </S.MovieComponentContainer>
         <S.MovieComponentContainer>
           <S.MovieComponentHeader>
             <S.MovieComponentTitle>
@@ -57,8 +58,8 @@ const MoviePage = ({ params, query, subject }) => {
   );
 };
 
-export const getServerSideProps = async ({ query, params }) => {
-  const subjectId = params.id || query.id;
+export const getServerSideProps = async ({  params }) => {
+  const subjectId = params.id;
   const data: SubjectModel = await subjectAPI.getSubjectById(subjectId);
   if (!data) {
     return {
@@ -70,8 +71,6 @@ export const getServerSideProps = async ({ query, params }) => {
   }
   return {
     props: {
-      params: params,
-      query: query,
       subject: data,
     },
   };

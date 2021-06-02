@@ -14,7 +14,7 @@ const NewReviewPage = ({ subject }) => {
   return (
     <Layout>
       <S.ReviewPageContainer>
-        {/* <WriteHeader name={subject.name} releasedDate={subject.releasedDate} movieId={subject.id} /> */}
+        <WriteHeader name={subject.name} releasedDate={subject.releasedDate} movieId={subject.id} />
         <S.ReviewComponentContainer>
           <S.ReviewComponentTitle>평점</S.ReviewComponentTitle>
           <S.ReviewRating>
