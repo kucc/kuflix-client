@@ -14,7 +14,6 @@ const NewReviewPage = ({ subject }) => {
   return (
     <Layout>
       <S.ReviewPageContainer>
-        {console.log(reviewForm)}
         <WriteHeader name={subject.name} releasedDate={subject.releasedDate} movieId={subject.id} />
         <S.ReviewComponentContainer>
           <S.ReviewComponentTitle>평점</S.ReviewComponentTitle>

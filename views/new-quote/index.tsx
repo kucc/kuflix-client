@@ -12,7 +12,6 @@ const NewQuotePage = ({ subject }) => {
   return (
     <Layout>
       <S.QuotePageContainer>
-        {console.log(quoteForm)}
         <WriteHeader name={subject.name} releasedDate={subject.releasedDate} movieId={subject.id} />
         <S.QuoteComponentContainer>
           <S.QuoteComponentTitle>명대사 작성</S.QuoteComponentTitle>

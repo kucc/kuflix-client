@@ -17,16 +17,9 @@ export const useReview = (subjectId) => {
   const disabled = !Object.values(reviewForm).every((el) => Boolean(el));
 
   const handleSubmit = async () => {
-    setReviewForm({ ...reviewForm, reviewSubjectId: subjectId });
+    setReviewForm(reviewForm);
     const data: { reviewId: number } = await reviewAPI.postReview(reviewForm);
-    if (!data) {
-      return {
-        redirect: {
-          destination: '/error',
-          permanent: false,
-        },
-      };
-    }
+    //TODO: error handling
   };
   return {
     reviewForm,
