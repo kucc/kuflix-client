@@ -2,7 +2,7 @@ import router from 'next/router';
 import subjectAPI from '../../common/api/subject';
 import SubjectModel from '../../common/model/subject';
 import Layout from '../../components/layout';
-import Register from '../new-review/component/register';
+import Register from 'components/register';
 import * as S from './styles';
 
 const CompleteReviewPage = ({ subject }) => {

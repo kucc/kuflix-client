@@ -1,5 +1,5 @@
 import Layout from '../../components/layout';
-import Register from '../new-review/component/register';
+import Register from 'components/register';
 import WriteHeader from '../new-review/component/writeheader';
 import Quote from './component/quote';
 import * as S from './styles';

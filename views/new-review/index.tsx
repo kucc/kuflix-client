@@ -2,7 +2,7 @@ import Layout from '../../components/layout';
 import Review from './component/review';
 import Keyword from './component/keyword';
 import Rating from './component/rating';
-import Register from './component/register';
+import Register from 'components/register';
 import WriteHeader from './component/writeheader';
 import * as S from './styles';
 import SubjectModel from '../../common/model/subject';
