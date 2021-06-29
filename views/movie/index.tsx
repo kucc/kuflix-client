@@ -9,8 +9,10 @@ import subjectAPI from '../../common/api/subject';
 
 const MoviePage = ({ subject }) => {
   const router = useRouter();
-  const clickHandler = (movieId: number, link: string) => {
-    router.push(`/movie/${movieId}/${link}`);
+  const newReviewLink = `/movie/${subject.id}/new-review`;
+  const newQuoteLink = `/movie/${subject.id}/new-quote`;
+  const clickHandler = (link:string) => {
+    router.push(link);
   };
 
   return (
@@ -23,7 +25,7 @@ const MoviePage = ({ subject }) => {
           <S.MovieComponentHeader>
             <S.MovieComponentTitle>
               리뷰
-              <S.MovieInfoNew onClick={() => clickHandler(subject.id, 'new-review')}>
+              <S.MovieInfoNew onClick={() => clickHandler(newReviewLink)}>
                 ✏️
               </S.MovieInfoNew>
             </S.MovieComponentTitle>
@@ -40,7 +42,7 @@ const MoviePage = ({ subject }) => {
           <S.MovieComponentHeader>
             <S.MovieComponentTitle>
               명대사
-              <S.MovieInfoNew onClick={() => clickHandler(subject.id, 'new-quote')}>
+              <S.MovieInfoNew onClick={() => clickHandler(newQuoteLink)}>
                 ✏️
               </S.MovieInfoNew>
             </S.MovieComponentTitle>
