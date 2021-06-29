@@ -1,3 +1,4 @@
+import router from 'next/router';
 import subjectAPI from '../../common/api/subject';
 import SubjectModel from '../../common/model/subject';
 import Layout from '../../components/layout';
@@ -5,6 +6,9 @@ import Register from '../new-review/component/register';
 import * as S from './styles';
 
 const CompleteReviewPage = ({ subject }) => {
+  const handleClick = (link: string) => {
+    router.push(`/movie/${subject.id}/${link}`);
+  };
   return (
     <Layout>
       <S.CompleteReviwPageContainer>
@@ -18,8 +22,15 @@ const CompleteReviewPage = ({ subject }) => {
           🎉
         </S.CompleteMessageContainer>
         <S.CompleteRegisterContainer>
-          <Register message="같은 영화 명대사 등록하기" movieId={subject.id} link="new-quote" />
-          <Register message="등록한 리뷰 보기" movieId={subject.id} link="" color="secondary" />
+          <Register
+            message="같은 영화 명대사 등록하기"
+            handleClick={() => handleClick('new-quote')}
+          />
+          <Register
+            message="등록한 리뷰 보기"
+            handleClick={() => handleClick('')}
+            color="secondary"
+          />
         </S.CompleteRegisterContainer>
       </S.CompleteReviwPageContainer>
     </Layout>

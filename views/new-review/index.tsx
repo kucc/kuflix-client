@@ -34,13 +34,7 @@ const NewReviewPage = ({ subject }) => {
           </S.ReviewWrite>
         </S.ReviewComponentContainer>
         <S.ReviewComponentContainer>
-          <Register
-            message="리뷰 등록하기"
-            movieId={subject.id}
-            link="complete-review"
-            handleClick={handleSubmit}
-            disabled={disabled}
-          />
+          <Register message="리뷰 등록하기" handleClick={handleSubmit} disabled={disabled} />
         </S.ReviewComponentContainer>
       </S.ReviewPageContainer>
     </Layout>

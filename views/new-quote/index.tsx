@@ -8,7 +8,7 @@ import SubjectModel from '../../common/model/subject';
 import { useQuote } from './hooks';
 
 const NewQuotePage = ({ subject }) => {
-  const { quoteForm, setquoteForm, handleChange, disabled, handleSubmit } = useQuote(subject.id);
+  const { quoteForm, handleChange, disabled, handleSubmit } = useQuote(subject.id);
   return (
     <Layout>
       <S.QuotePageContainer>
@@ -20,13 +20,7 @@ const NewQuotePage = ({ subject }) => {
           </S.QuoteWriteContainer>
         </S.QuoteComponentContainer>
         <S.QuoteComponentContainer>
-          <Register
-            message="명대사 등록하기"
-            movieId={subject.id}
-            link="complete-quote"
-            handleClick={handleSubmit}
-            disabled={disabled}
-          />
+          <Register message="명대사 등록하기" handleClick={handleSubmit} disabled={disabled} />
         </S.QuoteComponentContainer>
       </S.QuotePageContainer>
     </Layout>

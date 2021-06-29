@@ -1,8 +1,6 @@
 export interface RegisterProps {
     message;
-    movieId;
-    link;
-    handleClick?;
+    handleClick;
     color?;
     disabled?;
 }

@@ -1,3 +1,4 @@
+import router from 'next/router';
 import { useState } from 'react';
 import subjectAPI from '../../common/api/subject';
 
@@ -18,14 +19,10 @@ export const useQuote = (subjectId) => {
       subjectId,
       quoteForm.content
     );
-    if (!data) {
-      return {
-        redirect: {
-          destination: '/error',
-          permanent: false,
-        },
-      };
+    if (data) {
+      return router.push(`/movie/${subjectId}/complete-quote`);
     }
+    //TODO: error handling
   };
   return {
     quoteForm,
