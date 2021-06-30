@@ -1,16 +1,20 @@
 import styled from 'styled-components';
 
 export const MoviePageContainer = styled.div`
-  margin-top: 50px;
-  padding: 0 30px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 0 20px;
 `;
 
 export const MovieComponentContainer = styled.div`
-  margin: 20px 0px 20px;
+  margin: 20px 0px;
 `;
 
+export const MovieComponentHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 export const MovieComponentTitle = styled.h2`
-  margin: 20px 0px 20px;
   display: flex;
   justify-content: space-between;
 `;
@@ -32,20 +36,14 @@ export const MovieQuoteContainer = styled.div`
   align-items: center;
 `;
 export const MovieInfoNew = styled.button`
-  background-color: #c4c4c4;
+  background-color: rgba(0, 0, 0, 0);
   width: 30px;
   border: none;
-  border-radius: 25px;
-  margin: 0px 10px 0px;
 `;
 
 export const MovieInfoMore = styled.button`
-  width: 90vw;
   border: none;
-  border-bottom: 1px solid;
-  font-size: 1em;
+  font-size: 15px;
   background-color: rgba(0, 0, 0, 0);
-  display: flex;
-  justify-content: center;
-  padding: 10px 30px 10px;
+  padding: 0 30px;
 `;

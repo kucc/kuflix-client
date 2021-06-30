@@ -1,9 +1,10 @@
 import axios from '../axios';
 import endpoints from '../endpoints';
+import { PostReviewBody } from '../model/review';
 
 const reviewAPI = {
-  postReview: async (): Promise<{ reviewId: number }> => {
-    const { data: reviewId } = await axios.post<{ reviewId: number }>(endpoints.REVIEW_API);
+  postReview: async (reviewForm: PostReviewBody): Promise<{ reviewId: number }> => {
+    const { data: reviewId } = await axios.post<{ reviewId: number }>(endpoints.REVIEW_API, reviewForm);
 
     return reviewId;
   },

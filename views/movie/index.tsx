@@ -1,89 +1,81 @@
-import { NextPage } from 'next';
 import Layout from '../../components/layout';
 import Info from './component/info';
 import Quote from './component/quote';
 import Review from './component/review';
 import { useRouter } from 'next/router';
 import * as S from './styles';
-import { MoviePageProps } from './types';
-import { getMockdata } from './mock-data';
+import SubjectModel from '../../common/model/subject';
+import subjectAPI from '../../common/api/subject';
 
-const MoviePage: NextPage<MoviePageProps> = ({ movieId, infos, reviews, quotes }) => {
+const MoviePage = ({ subject }) => {
   const router = useRouter();
-  const clickHandler = (movieId: number, link: string) => {
-    router.push(`/movie/${movieId}/${link}`);
+  const newReviewLink = `/movie/${subject.id}/new-review`;
+  const newQuoteLink = `/movie/${subject.id}/new-quote`;
+  const clickHandler = (link:string) => {
+    router.push(link);
   };
 
   return (
     <Layout>
       <S.MoviePageContainer>
         <S.MovieComponentContainer>
-          <Info info={infos} />
+          <Info info={subject} />
         </S.MovieComponentContainer>
         <S.MovieComponentContainer>
-          <S.MovieComponentTitle>
-            리뷰
-            <S.MovieInfoNew onClick={() => clickHandler(movieId, 'new-review')}>+</S.MovieInfoNew>
-          </S.MovieComponentTitle>
-          {reviews.map((review) => (
-            <S.MovieReviewContainer key={review.id}>
-              <Review review={review} />
-            </S.MovieReviewContainer>
-          ))}
-          <S.MovieInfoMore>더보기</S.MovieInfoMore>
+          <S.MovieComponentHeader>
+            <S.MovieComponentTitle>
+              리뷰
+              <S.MovieInfoNew onClick={() => clickHandler(newReviewLink)}>
+                ✏️
+              </S.MovieInfoNew>
+            </S.MovieComponentTitle>
+            <S.MovieInfoMore>더보기</S.MovieInfoMore>
+          </S.MovieComponentHeader>
+          {subject &&
+            subject.reviews.map((review) => (
+              <S.MovieReviewContainer key={review.id}>
+                <Review review={review} />
+              </S.MovieReviewContainer>
+            ))}
         </S.MovieComponentContainer>
         <S.MovieComponentContainer>
-          <S.MovieComponentTitle>
-            명대사
-            <S.MovieInfoNew onClick={() => clickHandler(movieId, 'new-quote')}>+</S.MovieInfoNew>
-          </S.MovieComponentTitle>
-          {quotes.map((quote) => (
-            <S.MovieQuoteContainer key={quote.id}>
-              <Quote quote={quote} />
-            </S.MovieQuoteContainer>
-          ))}
-          <S.MovieInfoMore>더보기</S.MovieInfoMore>
+          <S.MovieComponentHeader>
+            <S.MovieComponentTitle>
+              명대사
+              <S.MovieInfoNew onClick={() => clickHandler(newQuoteLink)}>
+                ✏️
+              </S.MovieInfoNew>
+            </S.MovieComponentTitle>
+            <S.MovieInfoMore>더보기</S.MovieInfoMore>
+          </S.MovieComponentHeader>
+          {subject &&
+            subject.famousLines.map((quote) => (
+              <S.MovieQuoteContainer key={quote.id}>
+                <Quote quote={quote} />
+              </S.MovieQuoteContainer>
+            ))}
         </S.MovieComponentContainer>
       </S.MoviePageContainer>
     </Layout>
   );
 };
 
-MoviePage.getInitialProps = async ({ req, res, query, ...rest }) => {
-  const movieId = query.movieId;
-  const response = await getMockdata();
-  const {
-    id,
-    name,
-    englishName,
-    description,
-    releasedDate,
-    score,
-    genre,
-    posterImageUrl,
-    director,
-    country,
-    runningTime,
-    audienceCount,
-  } = response;
-  const infos = {
-    id,
-    name,
-    englishName,
-    description,
-    releasedDate,
-    score,
-    genre,
-    posterImageUrl,
-    director,
-    country,
-    runningTime,
-    audienceCount,
+export const getServerSideProps = async ({  params }) => {
+  const subjectId = params.id;
+  const data: SubjectModel = await subjectAPI.getSubjectById(subjectId);
+  if (!data) {
+    return {
+      redirect: {
+        destination: '/error',
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {
+      subject: data,
+    },
   };
-  const reviews = response.reviews;
-  const quotes = response.famousLines;
-
-  return { movieId, infos, reviews, quotes, rest };
 };
 
 export default MoviePage;

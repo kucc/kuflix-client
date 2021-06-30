@@ -1,44 +1,48 @@
-import { NextPage } from 'next';
 import Layout from '../../components/layout';
-import Register from '../new-review/component/register';
+import Register from 'components/register';
 import WriteHeader from '../new-review/component/writeheader';
-import Review from './component/review';
+import Quote from './component/quote';
 import * as S from './styles';
-import { NewQuotePageProps } from './types';
-import { getMockdata } from '../movie/mock-data';
-// import { useQuote } from './hooks';
+import subjectAPI from '../../common/api/subject';
+import SubjectModel from '../../common/model/subject';
+import { useQuote } from './hooks';
 
-const NewQuotePage: NextPage<NewQuotePageProps> = ({ name, releasedDate, movieId }) => {
-  // const { } = useQuote()
+const NewQuotePage = ({ subject }) => {
+  const { quoteForm, handleChange, disabled, handleSubmit } = useQuote(subject.id);
   return (
     <Layout>
       <S.QuotePageContainer>
-        <WriteHeader name={name} releasedDate={releasedDate} movieId={movieId} />
+        <WriteHeader name={subject.name} releasedDate={subject.releasedDate} movieId={subject.id} />
         <S.QuoteComponentContainer>
           <S.QuoteComponentTitle>명대사 작성</S.QuoteComponentTitle>
           <S.QuoteWriteContainer>
-            <Review />
+            <Quote quoteForms={quoteForm} handleChange={handleChange} />
           </S.QuoteWriteContainer>
         </S.QuoteComponentContainer>
         <S.QuoteComponentContainer>
-          <Register
-            message="명대사 등록하기"
-            movieId={movieId}
-            link="complete-quote"
-            handleClick={() => {}}
-          />
+          <Register message="명대사 등록하기" handleClick={handleSubmit} disabled={disabled} />
         </S.QuoteComponentContainer>
       </S.QuotePageContainer>
     </Layout>
   );
 };
 
-NewQuotePage.getInitialProps = async ({ req, res, query, ...rest }) => {
-  const movieId = query.movieId;
-  const response = await getMockdata();
-  const name = response.name;
-  const releasedDate = response.releasedDate;
-  return { movieId, name, releasedDate, rest };
+export const getServerSideProps = async ({ params }) => {
+  const movieId = params.id;
+  const data: SubjectModel = await subjectAPI.getSubjectById(movieId);
+  if (!data) {
+    return {
+      redirect: {
+        destination: '/error',
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {
+      subject: data,
+    },
+  };
 };
 
 export default NewQuotePage;
