@@ -18,8 +18,8 @@ export const useReviewToggle = (reviewId: number) => {
 
   const toggleReviewLike = async (e) => {
     e.preventDefault();
-    await reviewAPI.postReviewLike(reviewId);
-    //TODO: error handling
+    const result = await reviewAPI.postReviewLike(reviewId);
+    if (!result) alert('서버 점검중입니다. 잠시 후 다시 시도해주세요:) ');
   };
 
   return {

@@ -8,18 +8,21 @@ const reviewAPI = {
   },
 
   postReviewLike: async (reviewId: number) => {
-    const { data: result } = await axios
-      .post(`${process.env.REVIEW_API}/${reviewId}/like`)
-      .catch((err) => {
-        console.error(err);
-        return null;
-      });
+    await axios.post(`${process.env.REVIEW_API}/${reviewId}/like`).catch((err) => {
+      console.error(err);
+      return false;
+    });
 
-    return result;
+    return true;
   },
 
   deleteReviewLike: async (reviewId: number) => {
-    await axios.delete(`${process.env.REVIEW_API}/${reviewId}/like`);
+    await axios.delete(`${process.env.REVIEW_API}/${reviewId}/like`).catch((err) => {
+      console.error(err);
+      return false;
+    });
+
+    return true;
   },
 };
 
