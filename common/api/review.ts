@@ -1,14 +1,19 @@
 import axios from '../axios';
+import endpoints from 'common/endpoints';
+import { PostReviewBody } from '../model/review';
 
 const reviewAPI = {
-  postReview: async (): Promise<{ reviewId: number }> => {
-    const { data: reviewId } = await axios.post<{ reviewId: number }>(process.env.REVIEW_API);
+  postReview: async (reviewForm: PostReviewBody): Promise<{ reviewId: number }> => {
+    const { data: reviewId } = await axios.post<{ reviewId: number }>(
+      endpoints.REVIEW_API,
+      reviewForm
+    );
 
     return reviewId;
   },
 
   postReviewLike: async (reviewId: number) => {
-    await axios.post(`${process.env.REVIEW_API}/${reviewId}/like`).catch((err) => {
+    await axios.post(`${endpoints.REVIEW_API}/${reviewId}/like`).catch((err) => {
       console.error(err);
       return false;
     });
@@ -17,7 +22,7 @@ const reviewAPI = {
   },
 
   deleteReviewLike: async (reviewId: number) => {
-    await axios.delete(`${process.env.REVIEW_API}/${reviewId}/like`).catch((err) => {
+    await axios.delete(`${endpoints.REVIEW_API}/${reviewId}/like`).catch((err) => {
       console.error(err);
       return false;
     });

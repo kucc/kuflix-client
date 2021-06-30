@@ -6,6 +6,7 @@ const queryClient = new QueryClient();
 queryClient.setDefaultOptions({
   queries: {
     staleTime: Infinity,
+    cacheTime: Infinity,
   },
 });
 

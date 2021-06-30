@@ -3,25 +3,33 @@ import styled from 'styled-components';
 export const MovieInfo = styled.div`
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 `;
 export const InfoImg = styled.img`
-  padding: 20px;
-  border-radius: 2em;
-  width: 350px;
+  border-radius: 1em;
+  width: 45%;
+  max-height: 250px;
+  object-fit: contain;
 `;
 
-export const InfoContainer = styled.div``;
+export const InfoContainer = styled.div`
+  width: 50%;
+  min-width: 150px;
+`;
 
 export const InfoTitleContainer = styled.div`
   display: flex;
   justify-content: center;
-  font-size: 25px;
+  font-size: 15px;
   font-weight: bold;
-  margin: 20px;
+  margin: 5px;
 `;
 
 export const InfoTitle = styled.div`
   padding: 5px;
+  display: flex;
+  flex-wrap: nowrap;
   // border-right: 1px solid #C4C4C4;
 `;
 
@@ -30,6 +38,7 @@ export const InfoOriginalTitle = styled.div`
 `;
 
 export const InfoTable = styled.table`
+  font-size: 12px;
   display: flex;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -63,7 +72,6 @@ export const InfoValue = styled.td`
 `;
 
 export const InfoOverview = styled.div`
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-size: 0.9em;
+  padding: 5px 0;
+  font-size: 11px;
 `;

@@ -20,6 +20,7 @@ export interface ReviewPreview {
 
 export interface PostReviewBody {
   score: number;
+  title: string;
   content: string;
   reviewSubjectId: number;
   categoryIds: number[];

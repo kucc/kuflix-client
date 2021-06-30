@@ -1,14 +1,16 @@
 import styled from 'styled-components';
 
-export const ReviewPageContainer = styled.div``;
+export const ReviewPageContainer = styled.div`
+  width: 100%
+`;
 export const ReviewComponentContainer = styled.div`
-  padding: 0 30px;
-  margin: 20px 0 20px;
+  padding: 0 20px;
+  margin: 20px 0;
 `;
 export const ReviewComponentTitle = styled.div`
+  margin: 10px 0;
   font-size: 24px;
   font-weight: 1000;
-  padding: 20px 0 20px;
 `;
 export const ReviewRating = styled.div`
   border: 1px solid;

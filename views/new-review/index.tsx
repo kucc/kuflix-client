@@ -1,60 +1,62 @@
-import { NextPage } from 'next';
 import Layout from '../../components/layout';
 import Review from './component/review';
 import Keyword from './component/keyword';
 import Rating from './component/rating';
-import Register from './component/register';
+import Register from 'components/register';
 import WriteHeader from './component/writeheader';
 import * as S from './styles';
-import { NewReviewPageProps } from './types';
-import { getMockdata } from '../movie/mock-data';
-// import { useReview } from './hooks';
+import SubjectModel from '../../common/model/subject';
+import subjectAPI from '../../common/api/subject';
+import { useReview } from './hooks';
 
-const NewReviewPage: NextPage<NewReviewPageProps> = ({ name, releasedDate, movieId }) => {
-  // const { } = useReview()
+const NewReviewPage = ({ subject }) => {
+  const { reviewForm, setReviewForm, handleChange, disabled, handleSubmit } = useReview(subject.id);
   return (
     <Layout>
       <S.ReviewPageContainer>
-        <WriteHeader name={name} releasedDate={releasedDate} movieId={movieId} />
+        <WriteHeader name={subject.name} releasedDate={subject.releasedDate} movieId={subject.id} />
         <S.ReviewComponentContainer>
           <S.ReviewComponentTitle>평점</S.ReviewComponentTitle>
           <S.ReviewRating>
-            <Rating />
+            <Rating reviewForms={reviewForm} handleChange={handleChange} />
           </S.ReviewRating>
         </S.ReviewComponentContainer>
         <S.ReviewComponentContainer>
           <S.ReviewComponentTitle>영화 키워드</S.ReviewComponentTitle>
           <S.ReviewKeyword>
-            <Keyword />
+            <Keyword reviewForms={reviewForm} setReviewForm={setReviewForm} />
           </S.ReviewKeyword>
         </S.ReviewComponentContainer>
         <S.ReviewComponentContainer>
           <S.ReviewComponentTitle>텍스트 리뷰 작성</S.ReviewComponentTitle>
           <S.ReviewWrite>
-            <Review />
+            <Review reviewForms={reviewForm} handleChange={handleChange} />
           </S.ReviewWrite>
         </S.ReviewComponentContainer>
         <S.ReviewComponentContainer>
-          <Register
-            message="리뷰 등록하기"
-            movieId={movieId}
-            link="complete-review"
-            handleClick={() => {}}
-          />
+          <Register message="리뷰 등록하기" handleClick={handleSubmit} disabled={disabled} />
         </S.ReviewComponentContainer>
       </S.ReviewPageContainer>
     </Layout>
   );
 };
 
-NewReviewPage.getInitialProps = async ({ req, res, query, ...rest }) => {
-  const movieId = query.movieId;
-  const baseURL = `http://localhost:3000/api/movie`;
-  const response = await getMockdata();
-  const name = response.name;
-  const releasedDate = response.releasedDate;
-
-  return { movieId, name, releasedDate, rest };
+export const getServerSideProps = async ({ params }) => {
+  const movieId = params.id;
+  const data: SubjectModel = await subjectAPI.getSubjectById(movieId);
+  if (!data) {
+    return {
+      redirect: {
+        destination: '/error',
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {
+      subject: data,
+    },
+  };
 };
 
 export default NewReviewPage;
