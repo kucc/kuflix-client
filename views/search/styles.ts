@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const SearchPage = styled.div`
   width: 100%;
   padding: 0 30px;
+  margin-top: 35px;
 `;
 
 export const SearchInput = styled.input`

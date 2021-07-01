@@ -1,11 +1,11 @@
 import axios from 'axios';
-import endpoints from './endpoints';
 
 const instance = axios.create({
-  baseURL: endpoints.API_BASE_URL,
+  baseURL: process.env.API_BASE_URL,
   withCredentials: true,
   headers: {
     'Access-Control-Allow-Origin': true,
+    'Access-Control-Allow-Credentials': true,
   },
 });
 
